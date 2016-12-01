@@ -45,7 +45,7 @@ if(column == null) {
 }
 int CurrentPage = 0;
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head> <link href="templatemo_style.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -53,7 +53,7 @@ int CurrentPage = 0;
 </head>
 <body>
 <div align=center>
-<center><H2><IMG src="../image/main.jpg" style='cursor:pointer' onClick="javascript:location.reload()"></H2></center><br>
+<H2><IMG src="../image/main.jpg" style='cursor:pointer' onClick="javascript:location.reload()"></H2><br>
 <%                     
 String member_id=(String)session.getAttribute("member_name");
 if(member_id==null){

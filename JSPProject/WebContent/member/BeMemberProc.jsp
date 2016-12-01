@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.net.URLEncoder" %>
+<%@ page import="member.MemberDAO"%>
 <%-- Integer.parseInt(request.getParameter("Currentage")) --%>
 <%request.setCharacterEncoding("utf-8"); %>
 <%-- Integer.parseInt(request.getParameter("CurrentPage")) --%>
@@ -81,7 +82,7 @@ try{
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>나도 셰프랍니다</title>
 </head>
 <body>
 
