@@ -1,33 +1,33 @@
 package member;
 
 public class Member {
-	private String id;
-	private String pw;
-	private String name;
-	private String mail;
+	private String userId;
+	private String userPw;
+	private String userName;
+	private String userMail;
 	
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getPw() {
-		return pw;
+	public String getUserPw() {
+		return userPw;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
 	}
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public String getMail() {
-		return mail;
+	public String getUserMail() {
+		return userMail;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
 	}
 }

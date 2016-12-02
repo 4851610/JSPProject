@@ -8,26 +8,27 @@ import java.sql.SQLException;
 import util.DBUtil;
 
 public class MemberDAO {
-	Connection conn; 
+	Connection conn;
 	PreparedStatement pstmt;
 	ResultSet rs;
-	
+	String sql;
+
 	/**
 	 * 아이디 중복확인
-	 * */
-	public boolean idCheck(String id) {
+	 */
+	public boolean idCheck(String userId) {
 		conn = DBUtil.connection();
-		String sql = "SELECT COUNT(*) FROM member WHERE id=?";
+		sql = "SELECT COUNT(*) FROM member WHERE id=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, userId);
 			rs = pstmt.executeQuery();
 			rs.next();
 			int same_id = rs.getInt(1);
 			if (same_id == 1) {
 				return false;
 			}
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -40,23 +41,23 @@ public class MemberDAO {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 회원가입
-	 * */
-	public boolean beMember(String id, String pw, String name, String mail) {
+	 */
+	public boolean beMember(String userId, String userPw, String userName, String userMail) {
 		conn = DBUtil.connection();
-		String sql = "insert into member values(?,?,?,?)"; 
+		sql = "insert into member values(?,?,?,?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,id);
-			pstmt.setString(2,pw);
-			pstmt.setString(3,name);
-			pstmt.setString(4,mail);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPw);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, userMail);
 			rs = pstmt.executeQuery();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-			return false; 
+			return false;
 		} finally {
 			try {
 				pstmt.close();
@@ -67,4 +68,39 @@ public class MemberDAO {
 		}
 		return true;
 	}
+
+	/**
+	 * 로그인
+	 */
+	public boolean login(String userId, String userPw) {
+		conn = DBUtil.connection();
+		sql = "";
+		boolean result = false;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPw);
+			rs = pstmt.executeQuery();
+			rs.next();
+			if(rs.getString(1).equals(userPw)) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 회원탈퇴
+	 * */
+	
 }

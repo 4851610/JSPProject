@@ -8,6 +8,6 @@
 <title>나도 셰프랍니다</title>
 </head>
 <body>
-	String id = "";
+	String id = request.getPrameter("");
 </body>
 </html>

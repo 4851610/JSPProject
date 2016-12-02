@@ -21,7 +21,7 @@
 <%-- Integer.parseInt(request.getParameter("CurrentPage")) --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head> <link href="templatemo_style.css" rel="stylesheet" type="text/css">
+<head> <link href="../css/templatemo_style.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>로그인</title>
 <script language="javascript">
@@ -49,7 +49,7 @@ function CheckMemberForm(form){
 	
 <FORM NAME="Login" method=post action="../member/LoginProc.jsp?CorrentPage=<%=m_cp%>&column=<%=m_column%>&key=<%=m_encoded_key%>">
 
-<table align=center width=330 border=1 cellspacing=0 cellpadding=2 align="left">
+<table align=center width=400 border=1 cellspacing=0 cellpadding=2 align="left">
 	<tr align=center>
 	<td width=120 align=center><b>아이디</b></td>
 	<td width=200>

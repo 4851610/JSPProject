@@ -47,7 +47,7 @@ int CurrentPage = 0;
 %>
 <!DOCTYPE html>
 <html>
-<head> <link href="templatemo_style.css" rel="stylesheet" type="text/css">
+<head> <link href="../css/templatemo_style.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나도 셰프랍니다</title>
 </head>
