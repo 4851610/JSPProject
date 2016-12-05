@@ -18,9 +18,9 @@ try {
 	Class.forName("com.mysql.jdbc.Driver");
 	conn=DriverManager.getConnection(jdbcUrl,jdbcId,jdbcPw);
 	
-	String Query1="SELECT filename FROM recipe ORDER BY del DESC limit 5";
-	String Query2="select filename from recipe order by num desc limit 5";
-	String Query3="select n.title, n.date, r.filename, r.title from notice n, review r order by n.num desc, r.num desc limit 5";
+	String Query1="SELECT recipe_image FROM recipe ORDER BY recipe_like DESC limit 5";
+	String Query2="select recipe_image from recipe order by recipe_unique_key desc limit 5";
+	String Query3="select n.notice_title, n.notice_date, r.review_image, r.review_title from notice n, review r order by n.notice_unique_key desc, r.review_unique_key desc limit 5";
 
 	pstmt=conn.prepareStatement(Query1);
 	rs=pstmt.executeQuery();
@@ -85,7 +85,7 @@ if(member_id==null){
 <tr align=center>
 <%
 while(rs.next()){
-	String filename = rs.getString("filename");
+	String filename = rs.getString(1);
 %>
 <td><img src = "../image/<%=filename%>" style="width:100px;height:100px"></td>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -99,7 +99,7 @@ while(rs.next()){
 <tr align=center>
 <%
 while(rs1.next()){
-	String filename_recipe = rs1.getString("filename");
+	String filename_recipe = rs1.getString(1);
 %>
 <td><img src = "../image/<%=filename_recipe%>" style="width:100px;height:100px"></td>
 <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -113,10 +113,10 @@ while(rs1.next()){
 <tr align=center><td align=center>제목</td><td>날짜</td><td align=center>사진</td><td align=center>제목</td></tr>
 <%
 while(rs2.next()) {
-	String title_notice = rs2.getString("n.title");
-	String date = rs2.getString("n.date");
-	String filename_review = rs2.getString("r.filename");
-	String title_review = rs2.getString("r.title");
+	String title_notice = rs2.getString(1);
+	String date = rs2.getString(2);
+	String filename_review = rs2.getString(3);
+	String title_review = rs2.getString(4);
 %>
 <tr>
 <td align=center><%=title_notice%></td><td><%=date %></td>

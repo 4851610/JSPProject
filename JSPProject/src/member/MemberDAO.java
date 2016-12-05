@@ -85,7 +85,7 @@ public class MemberDAO {
 			if(rs.getString(1).equals(userPw)) {
 				result = true;
 			}
-		} catch (SQLException e) {
+		} catch (SQLException e) { 
 			e.printStackTrace();
 			return false;
 		} finally {
