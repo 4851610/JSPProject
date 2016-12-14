@@ -108,7 +108,7 @@
 				for (Board b : list) {
 			%>
 			<tr>
-				<td align=center><%=title_notice%></td>
+				<td align=center><%=title_notice%></td>d
 				<td><%=date%></td>
 				<td align=center><img src="../image/<%=filename_review%>"
 					style="width: 100px; height: 100px"></td>
