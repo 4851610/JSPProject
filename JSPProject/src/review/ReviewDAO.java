@@ -11,6 +11,8 @@ public class ReviewDAO {
 	ResultSet rs;
 	ArrayList<Review> list = new ArrayList<Review>();
 	  
-	
+	public ArrayList<Review> list() {
+		return list;
+	}
 }
   
