@@ -10,6 +10,6 @@ public class ReviewDAO {
 	PreparedStatement pstmt;
 	ResultSet rs;
 	ArrayList<Review> list = new ArrayList<Review>();
-	
+	  
 	
 }
