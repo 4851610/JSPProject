@@ -43,7 +43,7 @@ function CheckMemberForm(form){
 	
 <FORM NAME="login" method=post action="../member/LoginProc.jsp?CorrentPage=<%=m_cp%>&column=<%=m_column%>&key=<%=m_encoded_key%>">
 
-<table align=center width=600 cellspacing=0 cellpadding=2 align="left">
+<table align=center width=700 cellspacing=0 cellpadding=2 align="left">
 	<tr align=center>
 	<td width=70 align=center>아이디</td>
 	<td><input type=text name="id" size=15 maxlength=15></td>

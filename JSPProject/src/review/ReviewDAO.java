@@ -15,12 +15,24 @@ public class ReviewDAO {
 	ArrayList<Review> list = new ArrayList<Review>();
 	String sql;
 
-	public ArrayList<Review> list() {
+	/**
+	 * 메인 최신 리뷰
+	 * */
+	public ArrayList<Review> mainList() {
 		conn = DBUtil.connection();
-		sql = "";
+		sql = "SELECT REVIEW_UNIQUE_KEY, REVIEW_TITLE, REVIEW_IMAGE FROM REVIEW ORDER BY REVIEW_DATE DESC LIMIT 5;";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int reviewUniqueKey = rs.getInt("REVIEW_UNIQUE_KEY");
+				String reviewTitle = rs.getString("REVIEW_TITLE");
+				String reviewImage = rs.getString("REVIEW_IMAGE");
+				
+				Review review = new Review(reviewUniqueKey, reviewTitle, reviewImage);
+				
+				list.add(review);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -28,4 +40,42 @@ public class ReviewDAO {
 		}
 		return list;
 	}
+	
+	/**
+	 * 리뷰 리스트
+	 * */
+	public ArrayList<Review> reviewList() {
+		conn = DBUtil.connection();
+		sql = "";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int reviewUniqueKey = rs.getInt("");
+				String reviewTitle = rs.getString("");
+				String reviewImage = rs.getString("");
+				
+				Review review = new Review(reviewUniqueKey, reviewTitle, reviewImage);
+				
+				list.add(review);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+		}
+		return list;
+	}
+	
+	/**
+	 * 리뷰 등록
+	 * */
+	
+	/**
+	 * 리뷰 수정
+	 * */
+	
+	/**
+	 * 리뷰 삭제
+	 * */
 }

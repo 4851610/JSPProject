@@ -8,6 +8,14 @@ public class Review {
 	private String reviewContent;
 	private String reviewImage;
 	
+	public Review() {}
+	
+	public Review(int reviewUniqueKey, String reviewTitle, String reviewImage) {
+		this.reviewUniqueKey = reviewUniqueKey;
+		this.reviewTitle = reviewTitle;
+		this.reviewImage = reviewImage;
+	}
+	
 	public int getReviewUniqueKey() {
 		return reviewUniqueKey;
 	}

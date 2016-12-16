@@ -3,7 +3,11 @@
 <%@ page import="java.net.URLEncoder"%>
 <%@ page import="board.Board"%>
 <%@ page import="board.BoardDAO"%>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="notice.Notice"%>
+<%@ page import="notice.NoticeDAO"%>
+<%@ page import="review.Review"%>
+<%@ page import="review.ReviewDAO"%>
+<%@ page import="java.util.ArrayList"%>
 <%
 	String encoded_key = " ";
 
@@ -19,8 +23,17 @@
 	}
 	int CurrentPage = 0;
 
-	BoardDAO bdao = new BoardDAO();
-	ArrayList<Board> list = bdao.bestRecipe();
+	BoardDAO bdao1 = new BoardDAO();
+	ArrayList<Board> list1 = bdao1.bestRecipe();
+
+	BoardDAO bdao2 = new BoardDAO();
+	ArrayList<Board> list2 = bdao2.mainBoard();
+
+	NoticeDAO ndao = new NoticeDAO();
+	ArrayList<Notice> list3 = ndao.mainNotice();
+
+	ReviewDAO rdao = new ReviewDAO();
+	ArrayList<Review> list4 = rdao.mainList();
 %>
 <!DOCTYPE html>
 <html>
@@ -58,7 +71,7 @@
 			}
 		%>
 
-		<table border=1 width=600>
+		<table style="width:600px">
 			<tr>
 				<td width=180 align=center><a
 					href="../best_recipe/best_recipeList.jsp">명예의 전당</a></td>
@@ -68,10 +81,10 @@
 			</tr>
 		</table>
 		<br> <a href="../best_recipe/best_recipeList.jsp">명예의 전당</a>
-		<table border=1 width=200>
+		<table style="width:200px">
 			<tr align=center>
 				<%
-					for (Board b : list) {
+					for (Board b : list1) {
 				%>
 				<td><img src="../image/<%=b.getRecipeImage()%>"
 					style="width: 100px; height: 100px"></td>
@@ -82,10 +95,10 @@
 			</tr>
 		</table>
 		<br> <a href="../board/BoardList.jsp">게시글 보기 </a>
-		<table border=1 width=200>
+		<table style="width: 200">
 			<tr align=center>
 				<%
-					for (Board b : list) {
+					for (Board b : list2) {
 				%>
 				<td><img src="../image/<%=b.getRecipeImage()%>"
 					style="width: 100px; height: 100px"></td>
@@ -97,26 +110,45 @@
 		</table>
 		<br>
 
-		<table align=center width=620>
-			<tr align=center>
-				<td align=center>제목</td>
-				<td>날짜</td>
-				<td align=center>사진</td>
-				<td align=center>제목</td>
-			</tr>
-			<%
-				for (Board b : list) {
-			%>
+		<table>
 			<tr>
-				<td align=center><%=title_notice%></td>d
-				<td><%=date%></td>
-				<td align=center><img src="../image/<%=filename_review%>"
-					style="width: 100px; height: 100px"></td>
-				<td align=center><%=title_review%></td>
+				<td>
+					<table border="1" style="hieght:550px">
+						<tr>
+							<td align=center>제목</td>
+							<td>날짜</td>
+						</tr>
+						<%
+							for (Notice n : list3) {
+						%>
+						<tr>
+							<td><%=n.getNoticeTitle()%></td>
+							<td><%=n.getNoticeDate()%></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td align=center>사진</td>
+							<td align=center>제목</td>
+						</tr>
+						<%
+							for (Review r : list4) {
+						%>
+						<tr>
+							<td><img src="../image/<%=r.getReviewImage()%>" style="width:100px;heigt:100px;"></td>
+							<td><%=r.getReviewTitle()%></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+				</td>
 			</tr>
-			<%
-				}
-			%>
 		</table>
 		<br>
 	</div>

@@ -6,6 +6,12 @@ public class Notice {
 	private String noticeDate;
 	private String noticeContent;
 	
+	public Notice(int noticeUniqueKey, String noticeTitle, String noticeDate) {
+		this.noticeUniqueKey = noticeUniqueKey;
+		this.noticeTitle = noticeTitle;
+		this.noticeDate = noticeDate;
+	}
+	
 	public int getNoticeUniqueKey() {
 		return noticeUniqueKey;
 	}
