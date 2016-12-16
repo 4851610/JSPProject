@@ -20,7 +20,7 @@ public class ReviewDAO {
 	 * */
 	public ArrayList<Review> mainList() {
 		conn = DBUtil.connection();
-		sql = "SELECT REVIEW_UNIQUE_KEY, REVIEW_TITLE, REVIEW_IMAGE FROM REVIEW ORDER BY REVIEW_DATE DESC LIMIT 5;";
+		sql = "SELECT REVIEW_UNIQUE_KEY, REVIEW_TITLE, REVIEW_IMAGE FROM REVIEW ORDER BY REVIEW_DATE DESC LIMIT 3;";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();

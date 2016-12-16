@@ -8,7 +8,7 @@
 <%@ page import="review.Review"%>
 <%@ page import="review.ReviewDAO"%>
 <%@ page import="java.util.ArrayList"%>
-<%
+<%    
 	String encoded_key = " ";
 
 	String column = request.getParameter("column");
@@ -42,6 +42,12 @@
 	type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>나도 셰프랍니다</title>
+<style>
+table {
+margin:auto;
+text-align:center;
+}
+</style>
 </head>
 <body>
 	<div align=center>
@@ -112,17 +118,22 @@
 
 		<table>
 			<tr>
+			<td><a href="../best_recipe/best_recipeList.jsp">공지사항</a></td>
+			<td></td>
+			<td><a href="">리뷰</a></td>
+			</tr>
+			<tr>
 				<td>
-					<table border="1" style="hieght:550px">
+					<table style="width:300;">
 						<tr>
-							<td align=center>제목</td>
-							<td>날짜</td>
+							<th align=center>제목</th>
+							<th align=center>날짜</th>
 						</tr>
 						<%
 							for (Notice n : list3) {
 						%>
 						<tr>
-							<td><%=n.getNoticeTitle()%></td>
+							<td style="height:60px"><%=n.getNoticeTitle()%></td>
 							<td><%=n.getNoticeDate()%></td>
 						</tr>
 						<%
@@ -130,17 +141,18 @@
 						%>
 					</table>
 				</td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<td>
-					<table>
+					<table style="width:300px">
 						<tr>
-							<td align=center>사진</td>
-							<td align=center>제목</td>
+							<th align=center>사진</th>
+							<th align=center>제목</th>
 						</tr>
 						<%
 							for (Review r : list4) {
 						%>
 						<tr>
-							<td><img src="../image/<%=r.getReviewImage()%>" style="width:100px;heigt:100px;"></td>
+							<td align="center"><img src="../image/<%=r.getReviewImage()%>"style="width: 100px; height: 100px"></td>
 							<td><%=r.getReviewTitle()%></td>
 						</tr>
 						<%
