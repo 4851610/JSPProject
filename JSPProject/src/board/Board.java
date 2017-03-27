@@ -12,8 +12,26 @@ public class Board {
 	
 	public Board() {}
 	
-	public Board(String recipeImage) {
+	public Board(int recipeUniqueKey, String recipeImage) {
+		this.recipeUniqueKey = recipeUniqueKey;
 		this.recipeImage = recipeImage;
+	}
+	
+	public Board(int recipeUniqueKey, String recipeTitle, String userName, String recipeDate) {
+		this.recipeUniqueKey = recipeUniqueKey;
+		this.recipeTitle = recipeTitle;
+		this.userName = userName;
+		this.recipeWritingDate = recipeDate;
+	}
+	
+	public Board(String recipeTitle, int recipeLike, String recipeDate, String recipeContent, String recipeImage, String userName, String categorizeName) {
+		this.recipeTitle = recipeTitle;
+		this.recipeLike = recipeLike;
+		this.recipeWritingDate = recipeDate;
+		this.recipeContent = recipeContent;
+		this.recipeImage = recipeImage;
+		this.userName = userName;
+		this.categorizeName = categorizeName;
 	}
 	
 	public int getRecipeUniqueKey() {

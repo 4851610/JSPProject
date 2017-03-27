@@ -12,11 +12,10 @@
 	String encoded_key = " ";
 
 	String column = request.getParameter("column");
-	if (column == null)
-		column = "";
-
 	String key = request.getParameter("key");
+	
 	if (column == null) {
+		column = "";
 		encoded_key = URLEncoder.encode(key, "utf-8");
 	} else {
 		key = "";
@@ -93,7 +92,7 @@ text-align:center;
 					for (Board b : list1) {
 				%>
 				<td><img src="../image/<%=b.getRecipeImage()%>"
-					style="width: 100px; height: 100px"></td>
+					style="width: 100px; height: 100px" onclick="../board/BoardContent.jsp?rno=<"></td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 				<%
 					}

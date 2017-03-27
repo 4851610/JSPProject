@@ -1,151 +1,123 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.sql.*" %>
-<%@ page import="java.net.URLEncoder" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="board.Board"%>
+<%@ page import="board.BoardDAO"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.net.URLEncoder"%>
 <%
-Connection conn=null;
-PreparedStatement pstmt=null;
-ResultSet rs1=null;
-ResultSet rs2=null;
+	int TotalRecords = 0;
+	int CurrentPage = 0;
+	int Number = 0;
+	int TotalPage = 0;
+	int TotalpageSets = 0;
+	int CurrentPageset = 0;
+	int PageRecords = 10;
+	int PageSets = 10;
 
-String Query1="";
-String Query2="";
-String encoded_key=" ";
+	String encoded_key = " ";
 
-int TotalRecords=0;
-int CurrentPage=0;
-int Number=0;
-int TotalPage=0;
-int TotalpageSets=0;
-int CurrentPageset=0;
-int PageRecords=10;
-int PageSets=10;
+	if (request.getParameter("CurrentPage") == null) {
+		CurrentPage = 1;
 
-if(request.getParameter("CurrentPage")==null){
-	CurrentPage=1;
-	
-}else{
-	CurrentPage=Integer.parseInt(request.getParameter("CurretPage"));
-}
+	} else {
+		CurrentPage = Integer.parseInt(request.getParameter("CurretPage"));
+	}
 
-int FirstRecord = PageRecords * (CurrentPage-1);
-String column = request.getParameter("column");
-if(column == null) column="";
+	int FirstRecord = PageRecords * (CurrentPage - 1);
+	String column = request.getParameter("column");
+	String key = request.getParameter("key");
 
-String key = request.getParameter("key");
-if(column == null) {
-	encoded_key = URLEncoder.encode(key,"euc-kr");
-} else {
-	key="";
-}
-try{
-	String jdbcUrl="jdbc:mysql://127.0.0.1/jsp_project_db";
-	String jdbcId="jspbook";
-	String jdbcPw="1234";
-	
-	Class.forName("com.mysql.jdbc.Driver");
-	conn=DriverManager.getConnection(jdbcUrl,jdbcId,jdbcPw);
-	
-	Query1="SELECT count(num) FROM recipe";
-	Query2="SELECT num, title, id, date FROM recipe ORDER BY num DESC";
-	
-	pstmt=conn.prepareStatement(Query1);
-	rs1=pstmt.executeQuery();
-	pstmt=conn.prepareStatement(Query2);
-	rs2=pstmt.executeQuery();
-	
-	rs1.next();
-	TotalRecords=rs1.getInt(1);
-	
-	Number=TotalRecords-(CurrentPage-1)*PageRecords;
+	BoardDAO bdao1 = new BoardDAO();
+	ArrayList<Board> list = bdao1.recipeList();
 
+	BoardDAO bdao2 = new BoardDAO();
+	TotalRecords = bdao2.totalRecord();
 
+	Number = TotalRecords - (CurrentPage - 1) * PageRecords;
 %>
 
 <html>
-<head> <link href="templatemo_style.css" rel="stylesheet" type="text/css">
+<head>
+<link href="../css/templatemo_style.css" rel="stylesheet"
+	type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>게시글 리스트</title>
 </head>
 <body>
-<center><H2><IMG src="../image/main.jpg" style='cursor:pointer' onClick="javascript:location.replace('../main/Main.jsp')"></H2><br>
+	<div align="center">
+		<header>
+			<IMG src="../image/main.jpg" style='cursor: pointer'
+				onClick="javascript:location.replace('../main/Main.jsp')">
+		</header>
+		<br>
+		<%
+			String member_id = (String) session.getAttribute("member_id");
+			if (member_id == null) {
+		%>
+		<jsp:include page="../member/login.jsp">
+			<jsp:param value="<%=CurrentPage%>" name="CurrentPage" />
+			<jsp:param value="<%=column%>" name="column" />
+			<jsp:param value="<%=key%>" name="key" />
+		</jsp:include>
+		<%
+			} else {
+		%>
+		<jsp:include page="../member/LoginState.jsp" />
+		<%
+			}
+		%>
+		<table>
+			<tr>
+				<td width=180 align=center><a
+					href="../best_recipe/best_recipeList.jsp">명예의 전당</a></td>
+				<td width=180 align=center><a href="../board/BoardList.jsp">게시글</a></td>
+				<td width=180 align=center><a href="../notice/NoticeList.jsp">공지사항</a></td>
+				<td width=180 align=center><a href="../review/ReviewList.jsp">후기</a></td>
+			</tr>
+		</table>
+		<br> <font size=4><b>레시피 글 목록</b></font> <br>
+		<table>
+			<tr align=center>
+				<td width=45><b>번호</b></td>
+				<td width=395><b>제목</b></td>
+				<td width=65><b>작성자</b></td>
+				<td width=70><b>작성일</b></td>
+			</tr>
 
+			<%
+				for (Board b : list) {
+			%>
 
-<%                     
-String member_id=(String)session.getAttribute("member_id");
-if(member_id==null){
-	%>
-	<jsp:include page="../member/login.jsp">
-	<jsp:param value="<%=CurrentPage%>" name="CurrentPage"/>
-	<jsp:param value="<%=column %>" name="column"/>
-	<jsp:param value="<%=key %>" name="key"/>
-	</jsp:include>
-	<%
-}else{
-	%>
-	<jsp:include page="../member/LoginState.jsp"/>
-	<%
-	}
-%>
-<table border=1 width=600>
-<tr><td width = 180 align=center><a href="../best_recipe/best_recipeList.jsp">명예의 전당</a></td><td width = 180 align=center><a href="../board/BoardList.jsp">게시글</a></td>
-<td width = 180 align=center><a href="../notice/NoticeList.jsp">공지사항</a></td><td width = 180 align=center><a href="../review/ReviewList.jsp">후기</a></td></tr>
-</table><br>
-<table width=620 height=40 border=0 cellspacing=1 cellpadding=1 align=center>
-	<tr bgcolor=#D1B2FF>
-		<td align=center><font size=4><b>레시피 글 목록</b></font></td>
-		</tr>
-</table>
-<table width=620 border=1 cellspacing=0 cellpadding=1 align=center>
-<tr align=center>
-<td width=45><b>번호</b></td>
-<td width=395><b>제목</b></td>
-<td width=65><b>작성자</b></td>
-<td width=70><b>작성일</b></td>
-</tr>
-
-<%
-while(rs2.next()){
-	int rno=rs2.getInt("num");
-	String subject=rs2.getString("title");
-	String name=rs2.getString("id");
-	String date=rs2.getString("date");
-%>
-
-<tr>
-<td width=45 align=center><%=rno%></td>
-<td width=395 align=center><A href="../board/BoardContent.jsp?rno=<%=rno%>&coumn=<%=column%>&key=<%=encoded_key%>"><%=subject%></A></td>
-<td width=65 align=center><%=name%></td>
-<td align=center><%=date%></td>
-</tr>
-<% TotalRecords--;
-
-}
-%>
-</table>
-
-<form name="BoardSearch" method=post action="BoardList.jsp">
-<table width=620 height=50 border=0 cellspacing=1 cellpadding=1 align=center>
-<tr>
-<td align=left width=100>
-<input type = "button" value="글쓰기" OnClick="javascript:location.replace('BoardWrite.jsp')" style=cursor:hand>
-</td>
-
-</tr>
-</table></form>
-<%
-}
-catch(SQLException e){
-	e.printStackTrace();
-}finally {
-	rs2.close();
-	rs1.close();
-	pstmt.close();
-	conn.close();
-}
-%>
-
+			<tr>
+				<td width=45 align=center><%=Number%></td>
+				<td width=395 align=center><A
+					href="../board/BoardContent.jsp?rno=<%=b.getRecipeUniqueKey()%>&coumn=<%=column%>&key=<%=encoded_key%>"><%=b.getRecipeTitle()%></A></td>
+				<td width=65 align=center><%=b.getUserName()%></td>
+				<td align=center><%=b.getRecipeWritingDate()%></td>
+			</tr>
+			<%
+				Number--;
+				}
+			%>
+			<tr>
+				<td colspan="4" align="right"><input type="button" value="글쓰기"
+					OnClick="javascript:location.replace('BoardWrite.jsp')"
+					style="cursor: hand"></td>
+			</tr>
+		</table>
+		<br>
+		<form>
+			<select name="">
+			<option>제목</option>
+			<option>작성자</option>
+			<option>내용</option>
+			</select>
+			<input type="search" name="searchWord">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" name="" value="검색">
+		</form>
+		<br> <br><br><br>
+	</div>
 </body>
 </html>
